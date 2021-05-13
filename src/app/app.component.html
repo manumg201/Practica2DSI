@@ -1,10 +1,11 @@
 <body>
   <div class="container" >
-    <header >
+    <header id="cabecera">
       <b id="titulo" (click)='mostrarInicio()'>INFO - COVID</b>
       <button (click)='mostrarMenu()' *ngIf="main!='inicioSes' && main != 'registro'" id="menu">|||</button>
     </header>
     <main id="inicioSes" *ngIf="main == 'inicioSes'">
+      <b id = "texto"> INICIO DE SESIÓN </b> <br> <br>
       Correo: <br>
       <input [(ngModel)]='corrU' placeholder="Introduzca su correo">
       <br><br>
@@ -13,8 +14,8 @@
       <br><br>
       <input type="checkbox"> Politica de privacidad
       <br><br><br>
-      <button (click)='inicioSesion()'>Iniciar Sesion</button>
-      <button (click)='mostrarRegistro()'>Crear nuevo usuario</button>
+      <button class="boton" (click)='inicioSesion()'>Iniciar Sesion</button>
+      <button class="boton" (click)='mostrarRegistro()'>Crear nuevo usuario</button>
     </main>
     <main id="registro" *ngIf="main == 'registro'">
       Nombre: <br>
@@ -29,7 +30,7 @@
       Vuelva a introducir su contraseña:<br>
       <input type="password" [(ngModel)]='passwU2' placeholder="Introduzca su contraseña">
       <br><br><br>
-      <button (click)='registro()'>Registrarme</button>
+      <button class="boton" (click)='registro()'>Registrarme</button>
     </main>
     <main id="inicio" *ngIf="main == 'inicio'" (click)='cerrarMenu()'> 
       <div *ngIf="verMenu" id="menuB">
@@ -47,7 +48,6 @@
           <span class="slider round"></span>
         </label>
       </div>
-      <br>
       <ul class="botones">
         <li><button (click)='mostrarRestricciones()'>Restricciones</button></li>
         <li><button (click)='mostrarEstadisticas()'>Estadisticas</button></li>
@@ -76,7 +76,7 @@
         </ul>
       </div>
       <br>
-      <div *ngIf="hayTQueda == 'si' " id="switch-TQ">
+      <div id="switch-TQ">
         <!-- Rounded switch -->
         <label class="switch">
           <input type="checkbox">
@@ -92,7 +92,7 @@
         <button (click)='cerrarSesion()'>Cerrar Sesion</button>
       </div>
       <p>A continuacion se muestran los graficos de nuevos casos y fallecimientos en el mes de Abril en España:</p>
-      <br><br>
+      <br>
       &nbsp; Nuevos casos:
       <br>
       <img id="graf" src="./assets/NCasosAbrEsp.jpg" alt="Grafica de nuevos casos en Abril en España">
