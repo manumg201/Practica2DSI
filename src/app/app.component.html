@@ -2,33 +2,36 @@
   <div class="container" >
     <header id="cabecera">
       <b id="titulo" (click)='mostrarInicio()'>INFO - COVID</b>
-      <button (click)='mostrarMenu()' *ngIf="main!='inicioSes' && main != 'registro'" id="menu">|||</button>
+      <div id="gobiernoEspana"><img id="logoEsp" src="./assets/gob.png" alt="Logo Gobierno de España"></div>
+      <button (click)='mostrarMenu()' *ngIf="main!='inicioSes' && main != 'registro'" id="menu">≡</button>
     </header>
     <main id="inicioSes" *ngIf="main == 'inicioSes'">
-      <b id = "texto"> INICIO DE SESIÓN </b> <br> <br>
-      Correo: <br>
-      <input [(ngModel)]='corrU' placeholder="Introduzca su correo">
-      <br><br>
-      Contraseña:<br>
-      <input type="password" [(ngModel)]='passwU' placeholder="Introduzca su contraseña">
-      <br><br>
-      <input type="checkbox"> Politica de privacidad
-      <br><br><br>
-      <button class="boton" (click)='inicioSesion()'>Iniciar Sesion</button>
-      <button class="boton" (click)='mostrarRegistro()'>Crear nuevo usuario</button>
+      <div id="contenedorInicio">
+        <b id = "texto"> INICIO DE SESIÓN </b> <br> <br>
+        Correo: <br>
+        <input [(ngModel)]='corrU' placeholder=" Introduzca su correo" class="escribir" >
+        <br><br>
+        Contraseña:<br>
+        <input class="escribir" type="password" [(ngModel)]='passwU' placeholder=" Introduzca su contraseña">
+        <br><br><div class="confirmarPolitica">
+        <input class="casilla" type="checkbox"> He leído la <a>Politica de privacidad</a></div>
+        <br><br>
+        <button class="boton" (click)='inicioSesion()'>Iniciar Sesion</button>
+        <button class="boton" (click)='mostrarRegistro()'>Crear nuevo usuario</button>
+      </div>
     </main>
     <main id="registro" *ngIf="main == 'registro'">
       Nombre: <br>
-      <input [(ngModel)]='nombreU' placeholder="Introduzca su nombre de usuario">
+      <input class="escribir" [(ngModel)]='nombreU' placeholder="Introduzca su nombre de usuario">
       <br><br>
       Correo: <br>
-      <input [(ngModel)]='corrU' placeholder="Introduzca su nombre de usuario">
+      <input class="escribir" [(ngModel)]='corrU' placeholder="Introduzca su nombre de usuario">
       <br><br>
       Contraseña:<br>
-      <input type="password" [(ngModel)]='passwU' placeholder="Introduzca su contraseña">
+      <input class="escribir" type="password" [(ngModel)]='passwU' placeholder="Introduzca su contraseña">
       <br><br>
       Vuelva a introducir su contraseña:<br>
-      <input type="password" [(ngModel)]='passwU2' placeholder="Introduzca su contraseña">
+      <input class="escribir" type="password" [(ngModel)]='passwU2' placeholder="Introduzca su contraseña">
       <br><br><br>
       <button class="boton" (click)='registro()'>Registrarme</button>
     </main>
@@ -36,10 +39,13 @@
       <div *ngIf="verMenu" id="menuB">
         Usuario: {{nombreU}}
         <br><br>
+          <button (click)='mostrarRestricciones()'>Restricciones</button>
+          <button (click)='mostrarEstadisticas()'>Estadisticas</button><br>
+          <a href="https://www.google.es/search?q=covid&source=lnms&tbm=nws&sa=X&ved=2ahUKEwj_7dWwkrPwAhVLyoUKHWfBA0kQ_AUoAXoECAEQAw&biw=1536&bih=754"><button onclick="">Noticias</button></a>
+          <br>
          <button (click)='cerrarSesion()'>Cerrar Sesion</button>
       </div>
       <div class="cuadradoMapa"><img id="mapa" src="./assets/Mapa.jpg" alt="Mapa de España"> </div>
-      <br>
       <div id="switch-pos">
         USAR TU POSICION &nbsp;
         <!-- Rounded switch -->
@@ -58,7 +64,11 @@
       <div *ngIf="verMenu" id="menuB">
         Usuario: {{nombreU}}
         <br><br>
-         <button (click)='cerrarSesion()'>Cerrar Sesion</button>
+          <button (click)='mostrarRestricciones()'>Restricciones</button>
+          <button (click)='mostrarEstadisticas()'>Estadisticas</button><br>
+          <a href="https://www.google.es/search?q=covid&source=lnms&tbm=nws&sa=X&ved=2ahUKEwj_7dWwkrPwAhVLyoUKHWfBA0kQ_AUoAXoECAEQAw&biw=1536&bih=754"><button onclick="">Noticias</button></a>
+          <br>
+          <button (click)='cerrarSesion()'>Cerrar Sesion</button>
       </div>
       <div id="elegirCom">
         Elige tu Comunidad:
@@ -66,7 +76,6 @@
           <option *ngFor='let comunidad of comunidades' > {{comunidad.nombre}}  </option>
         </select>
       </div>  
-      <br><br>
       <div id="restr">
         Las restricciones actuales en {{comunidadA}} son:
         <ul>
@@ -78,27 +87,33 @@
       <br>
       <div id="switch-TQ">
         <!-- Rounded switch -->
+        Poner alarma para el <br>toque de queda a las {{getTQueda()| number:'2.2-2'}} &nbsp;
         <label class="switch">
           <input type="checkbox">
           <span class="slider round"></span>
         </label>
-        Desea poner alarma para el <br>toque de queda a las {{getTQueda()| number:'2.2-2'}} &nbsp;
       </div>
     </main>
-    <main id="estadisticas" *ngIf="main == 'estadisticas'" (click)='cerrarMenu()'>
+    <main id="estadisticasMain" *ngIf="main == 'estadisticas'" (click)='cerrarMenu()'>
       <div *ngIf="verMenu" id="menuB">
         Usuario: {{nombreU}}
         <br><br>
+          <button (click)='mostrarRestricciones()'>Restricciones</button>
+          <button (click)='mostrarEstadisticas()'>Estadisticas</button><br>
+          <a href="https://www.google.es/search?q=covid&source=lnms&tbm=nws&sa=X&ved=2ahUKEwj_7dWwkrPwAhVLyoUKHWfBA0kQ_AUoAXoECAEQAw&biw=1536&bih=754"><button onclick="">Noticias</button></a>
+          <br>
         <button (click)='cerrarSesion()'>Cerrar Sesion</button>
       </div>
-      <p>A continuacion se muestran los graficos de nuevos casos y fallecimientos en el mes de Abril en España:</p>
-      <br>
-      &nbsp; Nuevos casos:
-      <br>
-      <img id="graf" src="./assets/NCasosAbrEsp.jpg" alt="Grafica de nuevos casos en Abril en España">
-      <br>&nbsp; Fallecimientos:
-      <br>
-      <img id="graf" src="./assets/FallAbrEsp.jpg" alt="Grafica de Fallecimientos en Abril en España">
+      <div id="estadisticas">
+        <p>A continuacion se muestran los graficos de nuevos casos y fallecimientos en el mes de Abril en España:</p>
+        <br>
+        &nbsp; Nuevos casos:
+        <br>
+        <img id="graf" src="./assets/NCasosAbrEsp.jpg" alt="Grafica de nuevos casos en Abril en España">
+        <br>&nbsp; Fallecimientos:
+        <br>
+        <img id="graf" src="./assets/FallAbrEsp.jpg" alt="Grafica de Fallecimientos en Abril en España">
+      </div>
     </main>
   </div>
 </body>
